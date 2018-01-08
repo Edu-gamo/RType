@@ -12,13 +12,14 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 
 public class MainCharacter extends Actor {
-    Sprite spr_player;
+    private Sprite spr_player;
     float speed = 2;
 
-    public MainCharacter(){
-        spr_player = new Sprite(new Texture("nave.png"));
+    public MainCharacter(Texture texture){
+        spr_player = new Sprite(texture);
         spr_player.setSize(Gdx.graphics.getWidth()/4,Gdx.graphics.getHeight()/5);
         spr_player.setPosition(0, Gdx.graphics.getHeight()/2-spr_player.getHeight()/2);
+
     }
 
     public void goUp(){
@@ -31,11 +32,10 @@ public class MainCharacter extends Actor {
 
     @Override
     public void act(float delta) {
-        super.act(delta);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
+        spr_player.draw(batch);
     }
 }

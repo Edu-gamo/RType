@@ -16,9 +16,15 @@ public class RTypeGame extends Game {
 	private Stage stage;
 
 	MainCharacter player;
+	Texture player_texture;
+	Texture enemy1_texture;
+	Texture enemy2_texture;
+
+	Enemy enemy;
+	Enemy enemy2;
 
 	/*private InputProcesador inputProc;
-	Texture spr_player;
+
 
 	SpriteBatch batch;*/
 	
@@ -27,8 +33,17 @@ public class RTypeGame extends Game {
 
 		stage = new Stage();
 
-		player = new MainCharacter();
+		player_texture = new Texture("nave.png");
+		player = new MainCharacter(player_texture);
 		stage.addActor(player);
+
+		enemy1_texture = new Texture("nave2.png");
+		enemy = new EnemyL(enemy1_texture);
+		stage.addActor(enemy);
+
+		enemy2_texture = new Texture("nave3.png");
+		enemy2 = new EnemyZ(enemy2_texture);
+		stage.addActor(enemy2);
 
 		/*batch = new SpriteBatch();
 
@@ -54,6 +69,7 @@ public class RTypeGame extends Game {
 	public void dispose () {
 		super.dispose();
 		stage.dispose();
+		player_texture.dispose();
 	}
 
 }
