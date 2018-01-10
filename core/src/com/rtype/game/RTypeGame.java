@@ -1,32 +1,19 @@
 package com.rtype.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class RTypeGame extends Game {
 
-	private Stage stage;
+	public static Stage stage;
 
 	MainCharacter player;
 	Texture player_texture;
 	Texture enemy1_texture;
 	Texture enemy2_texture;
-
-	Enemy enemy;
-	Enemy enemy2;
-
-	/*private InputProcesador inputProc;
-
-
-	SpriteBatch batch;*/
 	
 	@Override
 	public void create () {
@@ -37,21 +24,10 @@ public class RTypeGame extends Game {
 		player = new MainCharacter(player_texture);
 		stage.addActor(player);
 
-		enemy1_texture = new Texture("nave2.png");
-		enemy = new EnemyL(enemy1_texture);
-		stage.addActor(enemy);
+		EnemyManager.addEnemy(0, new Texture("nave2.png"));
+		EnemyManager.addEnemy(1, new Texture("nave3.png"));
 
-		enemy2_texture = new Texture("nave3.png");
-		enemy2 = new EnemyZ(enemy2_texture);
-		stage.addActor(enemy2);
-
-		/*batch = new SpriteBatch();
-
-		spr_player = new Texture("nave.png");
-		player = new MainCharacter(new Sprite(spr_player));
-
-		inputProc = new InputProcesador(player);
-		Gdx.input.setInputProcessor(inputProc);*/
+		BulletManager.player_bullet_texture = new Texture("disparo.png");
 	}
 
 	@Override
@@ -60,6 +36,21 @@ public class RTypeGame extends Game {
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		/*for (Enemy e : EnemyManager.enemies) {
+			for(Bullet b : BulletManager.playerBullets){
+				if(e.boundingBox.overlaps(b.boundingBox)){
+					e.remove();
+					b.remove();
+				}
+			}
+		}*/
+
+		/*for (int i = 0; i < EnemyManager.enemies.size(); i++){
+			for (int j = 0; j < BulletManager.playerBullets.size(); j++){
+				if(EnemyManager.enemies[i] == null)
+			}
+		}*/
 
 		stage.act();
 		stage.draw();

@@ -26,9 +26,9 @@ public class InputProcesador extends InputAdapter {
         Vector2 delta = newTouch.cpy().sub(lastTouch);
         lastTouch = newTouch;
         if (delta.y < 0){
-            player.goUp();
+            //player.goUp();
         }else{
-            player.goDown();
+            //player.goDown();
         }
         return true;
     }

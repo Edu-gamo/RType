@@ -4,13 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * Created by egaona on 1/8/2018.
  */
 
 public class EnemyL extends Enemy {
-    float speed = 200;
+    float speed = 200.0f;
     int posY;
 
     public EnemyL(Texture texture){
@@ -19,6 +20,8 @@ public class EnemyL extends Enemy {
         spr_enemy.setSize(spr_enemy.getWidth()*-1, spr_enemy.getHeight());
         posY = random.nextInt((int)(Gdx.graphics.getHeight()-spr_enemy.getHeight()));
         spr_enemy.setPosition(Gdx.graphics.getWidth(), posY);
+
+        boundingBox = new Rectangle(spr_enemy.getX(), spr_enemy.getY(), spr_enemy.getWidth(), spr_enemy.getHeight());
 
     }
 
@@ -29,6 +32,7 @@ public class EnemyL extends Enemy {
             posY = random.nextInt((int)(Gdx.graphics.getHeight()-spr_enemy.getHeight()));
             spr_enemy.setPosition(Gdx.graphics.getWidth(), posY);
         }
+        boundingBox.setPosition(spr_enemy.getX(), spr_enemy.getY());
     }
 
     @Override
