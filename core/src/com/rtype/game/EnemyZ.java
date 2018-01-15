@@ -1,91 +1,96 @@
 package com.rtype.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * Created by egaona on 1/8/2018.
  */
 
 public class EnemyZ extends Enemy {
-    float speed = 100.0f;
-    int posY;
-    int minY;
-    int maxY;
-    boolean goUp = false;
 
-    public EnemyZ(Texture texture){
-        spr_enemy = new Sprite(texture);
-        spr_enemy.setSize(Gdx.graphics.getWidth()/4,Gdx.graphics.getHeight()/5);
-        spr_enemy.setSize(spr_enemy.getWidth()*-1, spr_enemy.getHeight());
-        posY = random.nextInt((int)(Gdx.graphics.getHeight()-spr_enemy.getHeight()));
-        spr_enemy.setPosition(Gdx.graphics.getWidth(), posY);
+    private int minY;
+    private int maxY;
+    private boolean goUp = false;
 
-        boundingBox = new Rectangle(spr_enemy.getX(), spr_enemy.getY(), spr_enemy.getWidth(), spr_enemy.getHeight());
+    public EnemyZ(TextureAtlas texture){
+        textureAtlas = texture;
+        animation = new Animation(1/6f, textureAtlas.findRegions("blue_enemy"));
+        animation.setPlayMode(Animation.PlayMode.LOOP);
 
-        if(posY < (int)spr_enemy.getHeight()){
+        TextureRegion txtrgn = (TextureRegion) animation.getKeyFrame(time, true);
+        sprite = new Sprite(txtrgn);
+        setScale(1.5f);
+
+        boolean positionCorrect;
+        do {
+            posY = random.nextInt((int)(Gdx.graphics.getHeight()-getHeight()));
+            positionCorrect = true;
+            for (Enemy e : EnemyManager.getEnemies()) {
+                if(e != this && e.getX() + e.getBoundingBox().getWidth() >= Gdx.graphics.getWidth()){
+                    if(Math.sqrt(Math.pow(e.getY() - posY, 2)) <= getHeight()) positionCorrect = false;
+                }
+            }
+        }while (!positionCorrect);
+
+        setPosition(Gdx.graphics.getWidth(), posY);
+
+        if(posY < (int)getHeight()*2){
             minY = 0;
-            maxY = (int)spr_enemy.getHeight();
-        }else if(posY > (int)(Gdx.graphics.getHeight()-spr_enemy.getHeight()*2)){
-            minY = (int)(Gdx.graphics.getHeight()-spr_enemy.getHeight()*2);
-            maxY = (int)(Gdx.graphics.getHeight()-spr_enemy.getHeight());
+            maxY = (int)getHeight()*2;
+        }else if(posY > (int)(Gdx.graphics.getHeight()-getHeight()*3)){
+            minY = (int)(Gdx.graphics.getHeight()-getHeight()*3);
+            maxY = (int)(Gdx.graphics.getHeight()-getHeight());
         }else {
-            minY = posY - (int)spr_enemy.getHeight()/2;
-            maxY = posY + (int)spr_enemy.getHeight()/2;
+            minY = posY - (int)getHeight();
+            maxY = posY + (int)getHeight();
         }
+
+        speed = 100.0f;
+
+        maxShootDelay = 2.5f;
+        shootDelay = 0.0f;
 
     }
 
     @Override
     public void act(float delta) {
-        //spr_enemy.setX(spr_enemy.getX()-speed*delta);
-        movement(delta);
-        if(spr_enemy.getX() <= 0){
-            /*posY = random.nextInt((int)(Gdx.graphics.getHeight()-spr_enemy.getHeight()));
-            spr_enemy.setPosition(Gdx.graphics.getWidth(), posY);*/
-            resetEnemy();
-        }
-        boundingBox.setPosition(spr_enemy.getX(), spr_enemy.getY());
-    }
+        time += delta;
+        sprite.setRegion((TextureRegion) animation.getKeyFrame(time, true));
 
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        spr_enemy.draw(batch);
+        shootDelay += delta;
+        if(shootDelay >= maxShootDelay){
+            shootDelay = 0.0f;
+            //Shoot
+            BulletManager.addBullet(getX(), getY()+getHeight()/2, false);
+        }
+
+        movement(delta);
+        if(getX() + getWidth() <= 0){
+            setAlive(false);
+            EnemyManager.setClearEnem(true);
+        }
     }
 
     public void movement(float delta){
 
-        spr_enemy.setX(spr_enemy.getX()-speed*delta);
+        setX(getX()-speed*delta);
 
         if(goUp){
-            spr_enemy.setY(spr_enemy.getY()+speed*delta);
+            float dist = maxY - getY();
+            setY(getY()+(speed/4+dist)*delta);
         }else {
-            spr_enemy.setY(spr_enemy.getY()-speed*delta);
+            float dist = getY() - minY;
+            setY(getY()-(speed/4+dist)*delta);
         }
 
-        if(spr_enemy.getY() >= maxY && goUp){
+        if(getY() >= maxY && goUp){
             goUp = false;
-        }else if(spr_enemy.getY() <= minY && !goUp){
+        }else if(getY() <= minY && !goUp){
             goUp = true;
-        }
-    }
-
-    public void resetEnemy(){
-        posY = random.nextInt((int)(Gdx.graphics.getHeight()-spr_enemy.getHeight()));
-        spr_enemy.setPosition(Gdx.graphics.getWidth(), posY);
-
-        if(posY < (int)spr_enemy.getHeight()){
-            minY = 0;
-            maxY = (int)spr_enemy.getHeight();
-        }else if(posY > (int)(Gdx.graphics.getHeight()-spr_enemy.getHeight()*2)){
-            minY = (int)(Gdx.graphics.getHeight()-spr_enemy.getHeight()*2);
-            maxY = (int)(Gdx.graphics.getHeight()-spr_enemy.getHeight());
-        }else {
-            minY = posY - (int)spr_enemy.getHeight()/2;
-            maxY = posY + (int)spr_enemy.getHeight()/2;
         }
     }
 

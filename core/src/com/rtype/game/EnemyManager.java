@@ -1,6 +1,7 @@
 package com.rtype.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import java.util.Vector;
 
@@ -9,9 +10,12 @@ import java.util.Vector;
  */
 
 public class EnemyManager {
+
     private static final EnemyManager ourInstance = new EnemyManager();
 
-    public static Vector<Enemy> enemies;
+    private static Vector<Enemy> enemies;
+
+    private static boolean clearEnem;
 
     public static EnemyManager getInstance() {
         return ourInstance;
@@ -19,9 +23,26 @@ public class EnemyManager {
 
     private EnemyManager() {
         enemies = new Vector<Enemy>();
+        clearEnem = false;
     }
 
-    public static void addEnemy(int type, Texture texture){
+    public static Vector<Enemy> getEnemies(){
+        return enemies;
+    }
+
+    public static int totalEnemies(){
+        return enemies.size();
+    }
+
+    public static boolean isClearEnem(){
+        return clearEnem;
+    }
+
+    public static void setClearEnem(boolean _clearEnem){
+        clearEnem = _clearEnem;
+    }
+
+    public static void addEnemy(int type, TextureAtlas texture){
         Enemy e = null;
         switch (type){
             case 0:
@@ -33,5 +54,17 @@ public class EnemyManager {
         }
         enemies.add(e);
         RTypeGame.stage.addActor(e);
+    }
+
+    public static void clearEnemies(boolean clearAll){
+        Vector<Enemy> aliveEnemies = new Vector<Enemy>();
+        if(!clearAll) {
+            for (Enemy e : enemies) {
+                if (e.isAlive()) aliveEnemies.add(e);
+            }
+        }
+        enemies.clear();
+        enemies = aliveEnemies;
+        clearEnem = false;
     }
 }

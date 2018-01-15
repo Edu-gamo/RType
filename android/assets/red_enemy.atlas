@@ -1,0 +1,47 @@
+red_enemy.png
+size: 138, 24
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+red_enemy
+  rotate: false
+  xy: 0, 0
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: 1
+red_enemy
+  rotate: false
+  xy: 23, 0
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: 2
+red_enemy
+  rotate: false
+  xy: 46, 0
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: 3
+red_enemy
+  rotate: false
+  xy: 69, 0
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: 4
+red_enemy
+  rotate: false
+  xy: 92, 0
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: 5
+red_enemy
+  rotate: false
+  xy: 115, 0
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: 6

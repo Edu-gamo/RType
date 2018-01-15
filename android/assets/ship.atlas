@@ -1,0 +1,117 @@
+ship.png
+size: 1680, 16
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ship
+  rotate: false
+  xy: 0, 0
+  size: 1080, 16
+  orig: 1080, 16
+  offset: 0, 0
+  index: -1
+Ship_down
+  rotate: false
+  xy: 1080, 0
+  size: 40, 16
+  orig: 40, 16
+  offset: 0, 0
+  index: 1
+Ship_down
+  rotate: false
+  xy: 1120, 0
+  size: 40, 16
+  orig: 40, 16
+  offset: 0, 0
+  index: 2
+Ship_down
+  rotate: false
+  xy: 1160, 0
+  size: 40, 16
+  orig: 40, 16
+  offset: 0, 0
+  index: 3
+Ship_idle
+  rotate: false
+  xy: 1200, 0
+  size: 40, 16
+  orig: 40, 16
+  offset: 0, 0
+  index: 1
+Ship_idle
+  rotate: false
+  xy: 1240, 0
+  size: 40, 16
+  orig: 40, 16
+  offset: 0, 0
+  index: 2
+Ship_idle
+  rotate: false
+  xy: 1280, 0
+  size: 40, 16
+  orig: 40, 16
+  offset: 0, 0
+  index: 3
+Ship_transitionDown
+  rotate: false
+  xy: 1320, 0
+  size: 40, 16
+  orig: 40, 16
+  offset: 0, 0
+  index: 1
+Ship_transitionDown
+  rotate: false
+  xy: 1360, 0
+  size: 40, 16
+  orig: 40, 16
+  offset: 0, 0
+  index: 2
+Ship_transitionDown
+  rotate: false
+  xy: 1400, 0
+  size: 40, 16
+  orig: 40, 16
+  offset: 0, 0
+  index: 3
+Ship_transitionUp
+  rotate: false
+  xy: 1440, 0
+  size: 40, 16
+  orig: 40, 16
+  offset: 0, 0
+  index: 1
+Ship_transitionUp
+  rotate: false
+  xy: 1480, 0
+  size: 40, 16
+  orig: 40, 16
+  offset: 0, 0
+  index: 2
+Ship_transitionUp
+  rotate: false
+  xy: 1520, 0
+  size: 40, 16
+  orig: 40, 16
+  offset: 0, 0
+  index: 3
+Ship_up
+  rotate: false
+  xy: 1560, 0
+  size: 40, 16
+  orig: 40, 16
+  offset: 0, 0
+  index: 1
+Ship_up
+  rotate: false
+  xy: 1600, 0
+  size: 40, 16
+  orig: 40, 16
+  offset: 0, 0
+  index: 2
+Ship_up
+  rotate: false
+  xy: 1640, 0
+  size: 40, 16
+  orig: 40, 16
+  offset: 0, 0
+  index: 3
